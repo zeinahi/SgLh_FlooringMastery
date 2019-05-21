@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/aop  
+          http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+    <!-- Bean definitions go here -->
+   <bean id="OrderDao" class="com.swcguild.flooringmastery.dao.OrderDaoFileImpl"> </bean>
+   <bean id="ProductDao" class="com.swcguild.flooringmastery.dao.ProductDaoFileImpl"> </bean>
+   <bean id="StateTaxesDao" class="com.swcguild.flooringmastery.dao.StateTaxesDaoFileImpl"> </bean>
+   
+   <bean id="serviceLayer" class="com.swcguild.flooringmastery.service.ServiceLayerImpl">
+       <constructor-arg ref="OrderDao"/>
+       <constructor-arg ref="ProductDao"/>
+       <constructor-arg ref="StateTaxesDao"/>
+   </bean>
+   
+   <bean id="io" class="com.swcguild.flooringmastery.ui.UserIOConsoleImpl"> </bean>
+   
+   <bean id="view" class="com.swcguild.flooringmastery.ui.FlooringMasteryView"> 
+       <constructor-arg ref="io"/>
+   </bean>
+   
+   <bean id="controller" class="com.swcguild.flooringmastery.controller.Controller"> 
+       <constructor-arg ref="serviceLayer"/>
+       <constructor-arg ref="view"/>
+   </bean>
+   
+<!--   <aop:config> 
+       <aop:pointcut id="LoggingAdvice" expression="execution(com.swcguild"
+   </aop:config>-->
+   
+</beans>
